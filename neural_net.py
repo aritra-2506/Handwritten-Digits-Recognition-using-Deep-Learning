@@ -6,6 +6,7 @@ from keras.utils import to_categorical
 from keras.utils import plot_model
 from keras.preprocessing.image import ImageDataGenerator
 from numpy import expand_dims
+import matplotlib.pyplot as plt
 
 
 model = models.Sequential()
@@ -23,6 +24,9 @@ model.add(layers.Flatten())
 model.add(layers.Dense(10, activation='softmax'))
 
 (train_images, train_labels), (test_images, test_labels) = mnist.load_data()
+plt.imshow(train_images[10], cmap=plt.cm.binary)
+plt.show()
+print(train_labels[10])
 
 train_images = train_images.reshape((60000, 28, 28, 1))
 train_images = train_images.astype('float32') / 255
@@ -51,7 +55,7 @@ model.compile(loss='categorical_crossentropy',
               optimizer='sgd',
               metrics=['accuracy'])
 
-model.fit_generator(datagen.flow(train_images, train_labels, batch_size=Batch_Size),steps_per_epoch=len(train_images) / 32, epochs=Epochs)
+#model.fit_generator(datagen.flow(train_images, train_labels, batch_size=Batch_Size),steps_per_epoch=len(train_images) / 32, epochs=Epochs)
 
 
 
@@ -61,7 +65,9 @@ model.fit_generator(datagen.flow(train_images, train_labels, batch_size=Batch_Si
           verbose=1
           )'''
 
-plot_model(model, to_file='model.png')
+#plot_model(model, to_file='model.png')
+
+
 
 
 
