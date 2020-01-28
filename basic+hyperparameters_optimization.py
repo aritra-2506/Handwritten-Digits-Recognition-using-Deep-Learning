@@ -29,9 +29,9 @@ def create_model(optimizer='adam', activation='relu', dropout_rate=0.0):
     model.add(layers.AveragePooling2D((2, 2)))
 
     model.add(layers.Flatten())
-    model.add(layers.Dense(10, activation=activation))
+    model.add(layers.Dense(10, activation='relu'))
     model.add(layers.Dropout(rate=dropout_rate))
-    model.add(layers.Dense(10, activation='softmax'))
+    model.add(layers.Dense(10, activation=activation))
     model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy'])
     return model
 
@@ -40,13 +40,14 @@ def create_model(optimizer='adam', activation='relu', dropout_rate=0.0):
 
 train_images = train_images.reshape((60000, 28, 28, 1))
 train_images = train_images.astype('float32') / 255
+train_images=train_images[0:100]
 
 test_images = test_images.reshape((10000, 28, 28, 1))
 test_images = test_images.astype('float32') / 255
 
 train_labels = to_categorical(train_labels)
+train_labels=train_labels[0:100]
 test_labels = to_categorical(test_labels)
-
 
 model = KerasClassifier(build_fn=create_model, verbose=0)
 
@@ -61,5 +62,3 @@ grid = GridSearchCV(estimator=model, param_grid=param_grid, n_jobs=-1, cv=3)
 grid_result = grid.fit(train_images, train_labels)
 
 print("Best: %f using %s" % (grid_result.best_score_, grid_result.best_params_))
-plot_model(model, to_file='model.png')
-
