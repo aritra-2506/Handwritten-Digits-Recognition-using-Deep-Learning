@@ -1,5 +1,5 @@
 # Handwritten-Digits-Recognition-using-Deep-Learning
-Uses MNIST Dataset - Grayscale Images
+Uses MNIST Dataset - Grayscale images, balanced dataset and loading data directly
 
 Three different types of scripts are there. 
 
